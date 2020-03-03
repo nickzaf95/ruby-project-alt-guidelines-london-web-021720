@@ -1,0 +1,6 @@
+- Create test data so that I can see that the 
+associations work
+- Check associations
+- Functions to initialize each song with an artist and a genre
+- Save each song in the initialize 
+- Use my own playlists to do seed data?
