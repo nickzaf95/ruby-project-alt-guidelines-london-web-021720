@@ -14,7 +14,7 @@ class Song < ActiveRecord::Base
         if Playlist.all.find{ |p| p.name == title }
             Playlist.all.find{ |p| p.name == title }.add_song(self.name)
         else
-            "I'm sorry, this playlist does not exist"
+            nil
         end
     end
 
