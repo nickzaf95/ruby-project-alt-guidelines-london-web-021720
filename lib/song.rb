@@ -10,5 +10,13 @@ class Song < ActiveRecord::Base
         Song.create(name: title, artist: a, genre: g)
     end
 
+    def add_to_playlist(title)
+        if Playlist.all.find{ |p| p.name == title }
+            Playlist.all.find{ |p| p.name == title }.add_song(self.name)
+        else
+            "I'm sorry, this playlist does not exist"
+        end
+    end
+
 
 end
