@@ -22,5 +22,4 @@ class Song < ActiveRecord::Base
         Song.all.find{ |s| s.name == title }
     end
 
-
 end
