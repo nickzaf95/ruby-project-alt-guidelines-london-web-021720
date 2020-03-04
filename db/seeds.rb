@@ -289,4 +289,3 @@ Followings.create(user_id: sam.id, playlist_id: pop_plist.id)
 Followings.create(user_id: jo.id, playlist_id: sundaze.id)
 Followings.create(user_id: jo.id, playlist_id: minimal_plist.id)
 Followings.create(user_id: jo.id, playlist_id: newyears.id)
-
