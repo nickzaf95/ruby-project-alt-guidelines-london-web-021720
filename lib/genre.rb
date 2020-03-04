@@ -8,4 +8,8 @@ class Genre < ActiveRecord::Base
         Song.all.select{ |s| s.genre_id == self.id }
     end
 
+    def self.find_genre(title)
+        Genre.all.find{ |s| s.name == title }
+    end
+
 end

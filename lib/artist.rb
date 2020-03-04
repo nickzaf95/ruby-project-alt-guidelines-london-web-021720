@@ -8,4 +8,8 @@ class Artist < ActiveRecord::Base
         Song.all.select{ |s| s.artist_id == self.id }
     end
 
+    def self.find_artist(title)
+        Artist.all.find{ |s| s.name == title }
+    end
+
 end
