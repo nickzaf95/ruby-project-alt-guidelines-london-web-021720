@@ -38,4 +38,14 @@ class Playlist < ActiveRecord::Base
         genre.songs.each{ |s| PlaylistJoiner.add(s, self) }
     end
 
+    def creator
+        # Finds the instance of who created this playlist
+        User.all.find{ |u| u.id == self.user_id }
+    end
+
+    def creator_name
+        # Returns the name of who created this playlist
+        self.creator.name
+    end
+
 end
