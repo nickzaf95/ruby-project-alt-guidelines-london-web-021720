@@ -35,7 +35,7 @@ class Song < ActiveRecord::Base
         Song.all.each do |s|
             arr[s.name] = s.how_many_playlists
         end
-        arr.sort_by{|k, v| -v}.to_h.first(5)
+        arr.sort_by{|k, v| -v}.to_h.first(5).to_h
     end
 
 
