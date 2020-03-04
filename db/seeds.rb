@@ -302,3 +302,7 @@ electro_plist.add_song("Raw")
 sundaze.add_song("Tropic")
 sundaze.add_song("Perth")
 drakes.add_song("Tropic")
+
+# Creating an original top 5 so as not to run through slow method
+topsongs = {"Tropic"=>6, "Perth"=>5, "Raw"=>4, "The Illout"=>4, "Bela"=>3}
+original_top_songs_playlist = Playlist.create_favourites(topsongs)
