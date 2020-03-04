@@ -73,6 +73,7 @@ class Playlist < ActiveRecord::Base
     end
 
     def self.is_there_artist(title)
+        # Returns a list of all the playlists that include this artist
         artist = Artist.find_artist(title)
         arr = []
         Playlist.all.each do |p|
@@ -84,6 +85,7 @@ class Playlist < ActiveRecord::Base
     end
 
     def self.is_there_genre(title)
+        # Returns a list of all the playlists that include this genre
         genre = Genre.find_genre(title)
         arr = []
         Playlist.all.each do |p|
@@ -95,22 +97,27 @@ class Playlist < ActiveRecord::Base
     end
 
     def follow_count 
+        # Counts how many users follow this playlist
         Followings.all.select{ |f| f.playlist_id == self.id }.size
     end
 
     def song_count
+        # Counts how many songs are in this playlist
         self.songs.size
     end
 
     def artist_count(title)
+        # Counts how many songs by this artist are in the playlist
         art = Artist.all.find{ |a| a.name == title }
         self.songs.select{ |s| s.artist = art }.size
     end
 
     def genre_count(title)
+        # Counts how many songs with this genre are in the playlist
         gen = Genre.all.find{ |g| g.name == title }
         self.songs.select{ |s| s.genre = gen }.size
     end
+    
 
 
 
