@@ -26,4 +26,17 @@ class Song < ActiveRecord::Base
         Playlist.is_there_song(self.name).size
     end
 
+    def self.top_songs
+        # Iterates through all the songs
+        # Counts how many playlists each song is in
+        # Returns a list of the top 5 songs
+        puts "WARNING!!! This may take some time."
+        arr = {}
+        Song.all.each do |s|
+            arr[s.name] = s.how_many_playlists
+        end
+        arr.sort_by{|k, v| -v}.to_h.first(5)
+    end
+
+
 end
