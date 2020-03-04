@@ -1,4 +1,3 @@
-Song.destroy_all
 
 
 # Creating all the artists
@@ -206,3 +205,4 @@ Song.create(name: "All The Way", artist: frank, genre: pop)
 Song.create(name: "Nancy", artist: frank, genre: pop)
 Song.create(name: "All Or Nothing At All", artist: frank, genre: pop)
 
+# Playlist time
