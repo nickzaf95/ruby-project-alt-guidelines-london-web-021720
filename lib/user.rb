@@ -19,10 +19,22 @@ class User < ActiveRecord::Base
         follows_all.map{ |f| f.playlist_id } 
     end
 
-    def follows 
+    def my_playlists  
         # Takes all the followings and maps them to
         # all the playlists that have the same playlist id
+        # Basically returns the playlists this user follows
         follows_all.map{ |f| Playlist.all.select{ |x| x.id == f.playlist_id }[0] }
+    end
+
+    def my_created_playlists
+        # Returns playlists that 'I' created
+        Playlist.all.select{ |p| p.user_id == self.id }[0]
+    end
+
+    def playlist_songs(title)
+        # Takes in a playlist name, returns the songs for that playlist
+        play = Playlist.all.find{ |p| p.name == title }
+        play.songs
     end
 
 end
