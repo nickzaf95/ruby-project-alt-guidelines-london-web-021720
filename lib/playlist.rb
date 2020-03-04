@@ -124,7 +124,18 @@ class Playlist < ActiveRecord::Base
     end
 
     def who_follows
+        # Array of each user that follows this playlist
         self.followings.map{ |f| User.all.find{ |u| u.id == f.user_id } }
+    end
+
+    def check_for_follow(username)
+        # Returns false if user already follows
+        person = User.all.find{ |u| u.name == username }
+        if self.who_follows.include?(person)
+            false
+        else
+            true
+        end
     end
 
 
