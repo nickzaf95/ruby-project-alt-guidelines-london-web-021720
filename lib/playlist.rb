@@ -138,7 +138,15 @@ class Playlist < ActiveRecord::Base
         end
     end
 
-    
+    def self.create_favourites(hash)
+        # Takes a hash of the top songs
+        # Creates a playlist with these songs
+        top = Playlist.create(name: "Billboard Top 5")
+        hash.each do |k, v|
+            top.add_song(k)
+        end
+    end
+
 
 
     
