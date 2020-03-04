@@ -28,7 +28,14 @@ class Playlist < ActiveRecord::Base
         # Adds all the songs from a specific artist to a playlist
         # Does not add duplicates (separate method?)
         artist = Artist.all.select{ |a| a.name == name }[0]
-        artist.songs.each{ |s| PlaylistJoiner.add(s, self)}
+        artist.songs.each{ |s| PlaylistJoiner.add(s, self) }
+    end
+
+    def add_songs_from_genre(name)
+        # Adds all the songs from a specific genre to a playlist
+        # Does not add duplicates (separate method?)
+        genre = Genre.all.select{ |g| g.name == name }[0]
+        genre.songs.each{ |s| PlaylistJoiner.add(s, self) }
     end
 
 end
