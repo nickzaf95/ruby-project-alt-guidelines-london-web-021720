@@ -18,5 +18,9 @@ class Song < ActiveRecord::Base
         end
     end
 
+    def self.find_song(title)
+        Song.all.find{ |s| s.name == title }
+    end
+
 
 end
