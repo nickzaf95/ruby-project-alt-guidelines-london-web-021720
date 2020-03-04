@@ -1,5 +1,3 @@
-
-
 # Creating all the artists
 michael_jackson = Artist.create(name: "Michael Jackson")
 lady_gaga       = Artist.create(name: "Lady Gaga")
@@ -226,5 +224,9 @@ hip_plist     = Playlist.create(name: "Hip Hop",user_id: dinno.id)
 cinema_plist  = Playlist.create(name: "Cinematic",user_id: john.id)
 electro_plist = Playlist.create(name: "Electronic",user_id: dan.id)
 funk_plist    = Playlist.create(name: "Funk / Soul",user_id: nick.id)
+summer        = Playlist.create(name: "Summer",user_id: nick.id)
+newyears      = Playlist.create(name: "New Year's Eve",user_id: nick.id)
+drinks        = Playlist.create(name: "Drinks",user_id: nick.id)
+sundaze       = Playlist.create(name: "Frank Sinatra Special",user_id: nick.id)
 
-# Create the joiner table classes
+# Create the joiner table
