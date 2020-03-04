@@ -205,4 +205,26 @@ Song.create(name: "All The Way", artist: frank, genre: pop)
 Song.create(name: "Nancy", artist: frank, genre: pop)
 Song.create(name: "All Or Nothing At All", artist: frank, genre: pop)
 
-# Playlist time
+# Let's create the users
+nick   = User.create(name: "Nick")
+ali    = User.create(name: "Ali")
+dinno  = User.create(name: "Dinno")
+skye   = User.create(name: "Skye")
+sergio = User.create(name: "Sergio")
+jo     = User.create(name: "Hoots")
+dan    = User.create(name: "Dan")
+john   = User.create(name: "John")
+liv    = User.create(name: "Liv")
+sam    = User.create(name: "Sam")
+
+# Create the playlists now, (and who created them)
+house_plist   = Playlist.create(name: "House",user_id: nick.id)
+pop_plist     = Playlist.create(name: "Pop",user_id: sam.id)
+rock_plist    = Playlist.create(name: "Rock",user_id: skye.id)
+minimal_plist = Playlist.create(name: "Minimal House",user_id: nick.id)
+hip_plist     = Playlist.create(name: "Hip Hop",user_id: dinno.id)
+cinema_plist  = Playlist.create(name: "Cinematic",user_id: john.id)
+electro_plist = Playlist.create(name: "Electronic",user_id: dan.id)
+funk_plist    = Playlist.create(name: "Funk / Soul",user_id: nick.id)
+
+# Create the joiner table classes
