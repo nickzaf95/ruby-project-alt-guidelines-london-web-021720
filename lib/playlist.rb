@@ -94,6 +94,24 @@ class Playlist < ActiveRecord::Base
         arr
     end
 
+    def follow_count 
+        Followings.all.select{ |f| f.playlist_id == self.id }.size
+    end
+
+    def song_count
+        self.songs.size
+    end
+
+    def artist_count(title)
+        art = Artist.all.find{ |a| a.name == title }
+        self.songs.select{ |s| s.artist = art }.size
+    end
+
+    def genre_count(title)
+        gen = Genre.all.find{ |g| g.name == title }
+        self.songs.select{ |s| s.genre = gen }.size
+    end
+
 
 
 end
