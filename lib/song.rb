@@ -22,4 +22,8 @@ class Song < ActiveRecord::Base
         Song.all.find{ |s| s.name == title }
     end
 
+    def how_many_playlists
+        Playlist.is_there_song(self.name).size
+    end
+
 end
