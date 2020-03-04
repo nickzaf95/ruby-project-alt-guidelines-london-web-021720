@@ -96,9 +96,14 @@ class Playlist < ActiveRecord::Base
         arr
     end
 
+    def followings
+        # Returns an array with all the following pairs
+        Followings.all.select{ |f| f.playlist_id == self.id }
+    end
+
     def follow_count 
         # Counts how many users follow this playlist
-        Followings.all.select{ |f| f.playlist_id == self.id }.size
+        self.followings.size
     end
 
     def song_count
@@ -117,6 +122,12 @@ class Playlist < ActiveRecord::Base
         gen = Genre.all.find{ |g| g.name == title }
         self.songs.select{ |s| s.genre = gen }.size
     end
+
+    def who_follows
+        self.followings.map{ |f| User.all.find{ |u| u.id == f.user_id } }
+    end
+
+
     
 
 
