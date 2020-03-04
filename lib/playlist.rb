@@ -4,8 +4,8 @@ class Playlist < ActiveRecord::Base
     has_many :genres, through: :songs 
     has_many :users, through: :followings
 
-    def add_song(name)
-        song = (Song.all.select{ |s| s.name == name }).first
+    def add_song(title)
+        song = Song.find_song(title)
         PlaylistJoiner.create(playlist_id: self.id, song_id: song.id)
         song
     end
@@ -22,6 +22,18 @@ class Playlist < ActiveRecord::Base
         # Maps it to find all the song instances in this specific playlist
         # where the ids match
         pj_finder.map{ |s| Song.all.select{ |x| x.id == s.song_id }[0] }
+    end
+
+    def artists
+        songs = self.songs
+        arr = songs.map{ |s| s.artist }
+        arr.uniq
+    end
+
+    def genres
+        songs = self.songs
+        arr = songs.map{ |s| s.genre }
+        arr.uniq
     end
 
     def add_songs_from_artist(name)
@@ -47,5 +59,41 @@ class Playlist < ActiveRecord::Base
         # Returns the name of who created this playlist
         self.creator.name
     end
+
+    def self.is_there_song(title)
+        # Returns a list of all the playlists that include this song
+        song = Song.find_song(title)
+        arr = []
+        Playlist.all.each do |p|
+            if p.songs.include?(song)
+                arr << p 
+            end
+        end
+        arr
+    end
+
+    def self.is_there_artist(title)
+        artist = Artist.find_artist(title)
+        arr = []
+        Playlist.all.each do |p|
+            if p.artists.include?(artist)
+                arr << p 
+            end
+        end
+        arr
+    end
+
+    def self.is_there_genre(title)
+        genre = Genre.find_genre(title)
+        arr = []
+        Playlist.all.each do |p|
+            if p.genres.include?(genre)
+                arr << p 
+            end
+        end
+        arr
+    end
+
+
 
 end
