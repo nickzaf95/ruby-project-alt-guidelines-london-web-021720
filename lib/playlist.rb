@@ -156,4 +156,11 @@ class Playlist < ActiveRecord::Base
         arr.sort_by{|k, v| -v}.to_h.first(2).to_h
     end
 
+    def delete_from_playlist(title)
+        # Deletes song from this playlist
+        song = Song.find_by(name: title)
+        join = PlaylistJoiner.find_by(song_id: song.id, playlist_id: self.id)
+        PlaylistJoiner.delete(join)
+    end
+
 end
