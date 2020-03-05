@@ -74,7 +74,71 @@ class App
         end
     end
 
-    def song_adder
+    def artist_adder
+        puts "Please type in the correct name of the artist."
+        art = gets.chomp
+        art = down_it_and_titleize(art)
+        if Artist.find_artist(art) == nil
+            art = Artist.create(name: art)
+        else
+            puts "The Artist #{art} exists!"
+            art = Artist.find_artist(art)
+        end
+        art
+    end
+
+    def genre_adder
+        puts "Please type in the correct name of the genre."
+        gen = gets.chomp
+        gen = down_it_and_titleize(gen)
+        if Genre.find_genre(gen)
+            puts "The Genre #{gen} exists!"
+            gen = Genre.find_genre(gen)
+        else
+            gen = Genre.create(name: gen)
+        end
+        gen
+    end
+
+    def artist_checker
+        puts "Please type in the correct name of the artist."
+        art = gets.chomp
+        art = down_it_and_titleize(art)
+        check = Artist.find_artist(art)
+        if check == nil
+            puts "Sorry, please try again."
+        else
+            puts "#{check.name}"
+            puts "The artist has #{check.songs.size} songs"
+            puts "The artist's songs are:"
+            x = check.songs.map{ |s| s.name }
+            puts "#{x}"
+        end
+    end
+
+    def genre_checker
+        puts "Please type in the correct name of the genre."
+        gen = gets.chomp
+        gen = down_it_and_titleize(gen)
+        check = Genre.find_genre(gen)
+        if check == nil
+            puts "Sorry, please try again."
+        else
+            puts "#{check.name}"
+            puts "The genre has #{check.songs.size} songs"
+            puts "The genre's songs are:"
+            x = check.songs.map{ |s| s.name }
+            puts "#{x}"
+            puts "The genre's artists are:"
+            x = check.songs.map{ |s| s.artist.name }.uniq
+            puts "The genre has #{x.size} artists"
+        end
+    end
+
+
+
+
+    def song_adder(response)
         # Ask if they want to add the song to the database
         puts "Would you like to add this song to the database? [y/n]"
         answer = gets.chomp
@@ -82,22 +146,9 @@ class App
             puts "Ok not to worry!"
             return
         elsif answer.downcase == "y" || answer.downcase == "yes"
-            answer = down_it_and_titleize(answer)
-            puts "Please type in the correct name of the artist."
-            art = gets.chomp
-            if Artist.find_artist(down_it_and_titleize(art)) == nil
-                art = Artist.create(name: art)
-            else
-                art = Artist.find_artist(art)
-            end
-            puts "Please type in the correct name of the genre."
-            gen = gets.chomp
-            if Genre.find_genre(down_it_and_titleize(gen))
-                gen = Genre.find_genre(gen)
-            else
-                gen = Genre.create(name: gen)
-            end
-            Song.create(name: answer, artist: art, genre: gen)
+            art = self.artist_adder
+            gen = self.genre_adder
+            Song.create(name: response, artist: art, genre: gen)
         else
             puts "Sorry we did not understand. Please try again."
         end
@@ -171,8 +222,10 @@ class App
                 self.song_checker
             elsif desire == 5
                 # Check info of artist
+                self.artist_checker
             elsif desire == 6
                 # Check info of genre
+                self.genre_checker
             elsif desire == 7
                 # Modify playlist that you did not create
                 # Creates a new playlist with your user id
