@@ -78,7 +78,7 @@ class App
         puts "Please type in the correct name of the artist."
         art = gets.chomp
         art = down_it_and_titleize(art)
-        if Artist.find_artist(art) == nil
+        if Artist.find_by(name: art) == nil
             art = Artist.create(name: art)
         else
             puts "The Artist #{art} exists!"
@@ -91,7 +91,7 @@ class App
         puts "Please type in the correct name of the genre."
         gen = gets.chomp
         gen = down_it_and_titleize(gen)
-        if Genre.find_genre(gen)
+        if Genre.find_by(name: gen)
             puts "The Genre #{gen} exists!"
             gen = Genre.find_genre(gen)
         else
@@ -104,7 +104,7 @@ class App
         puts "Please type in the correct name of the artist."
         art = gets.chomp
         art = down_it_and_titleize(art)
-        check = Artist.find_artist(art)
+        check = Artist.find_by(name: art)
         if check == nil
             puts "Sorry, please try again."
         else
@@ -120,7 +120,7 @@ class App
         puts "Please type in the correct name of the genre."
         gen = gets.chomp
         gen = down_it_and_titleize(gen)
-        check = Genre.find_genre(gen)
+        check = Genre.find_by(name: gen)
         if check == nil
             puts "Sorry, please try again."
         else
@@ -164,8 +164,8 @@ class App
         else
             puts "This song exists!!!"
             puts "The name of the song is: #{isit.name}"
-            puts "The name of the artist is: #{isit.artist}"
-            puts "The name of the genre is: #{isit.genre}"
+            puts "The name of the artist is: #{isit.artist.name}"
+            puts "The name of the genre is: #{isit.genre.name}"
             puts "This song is in #{isit.how_many_playlists} playlists"
         end
     end
