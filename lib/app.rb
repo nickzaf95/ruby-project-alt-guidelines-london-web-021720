@@ -77,10 +77,21 @@ class App
                 desire = nil
                 break
             end
-            if desire == 1
+            if desire.class != Integer || desire < 1 || desire > 10
+                puts "Sorry we don't understand your response. Please try again."
+            elsif desire == 1
                 username.my_playlists
             elsif desire == 2
+                username.my_created_playlists
+            elsif desire == 3
                 
+            elsif desire == 4
+            elsif desire == 5
+            elsif desire == 6
+            elsif desire == 7
+            elsif desire == 8
+            elsif desire == 9
+            elsif desire == 10
         end
 
 
