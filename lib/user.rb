@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
     def my_created_playlists
         # Returns playlists that 'I' created
-        Playlist.all.select{ |p| p.user_id == self.id }[0]
+        Playlist.all.select{ |p| p.user_id == self.id }
     end
 
     def playlist_songs(title)
