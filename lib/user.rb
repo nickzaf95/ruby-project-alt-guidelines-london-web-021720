@@ -21,6 +21,18 @@ class User < ActiveRecord::Base
         arr
     end
 
+    def has_not_created
+        # Returns list of playlists you did not create
+        arr = []
+        users_playlists = my_created_playlists
+        Playlist.all.each do |p|
+            if users_playlists.include?(p) == false 
+                arr << p 
+            end
+        end
+        arr
+    end
+
     def follow(title)
         # Makes user follow this title playlist
         play = Playlist.all.find{ |p| p.name == title }
