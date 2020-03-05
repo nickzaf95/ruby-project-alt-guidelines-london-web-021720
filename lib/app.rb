@@ -200,17 +200,16 @@ class App
         playlist
     end
 
-    def modify(playlist_name)
+    def modify(playlist)
         puts "How would you like to modify this Playlist?"
         puts ""
         puts "Add a song to this playlist                   [1]"
         puts "Add all songs from an artist to this playlist [2]"
         puts "Add all songs from a genre to this playlist   [3]"
-        playlist = Playlist.find_by(name: playlist_name)
         response = gets.chomp.to_i
         if response < 1 || response > 3
             puts "Sorry, please try again!"
-            self.modify(playlist_name)
+            self.modify(playlist)
         elsif response == 1
             song = self.song_checker
             playlist.add_song(song)
@@ -267,7 +266,8 @@ class App
                 username.my_created_playlists.each{ |p| puts p.name }            
             elsif desire == 3
                 # Modify a playlist
-                
+                play = self.playlist_starter
+                self.modify(play)
             elsif desire == 4
                 # Check info of song
                 self.song_checker
