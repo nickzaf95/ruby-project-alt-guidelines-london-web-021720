@@ -35,6 +35,10 @@ class App
         end
     end
 
+    def goodbye
+        puts "Goodbye!"
+    end
+
     def provide_options
         puts "What would you like to do?"
         puts "Please respond with the integer in the square brackets only."
@@ -54,6 +58,22 @@ class App
         answer
     end
 
+    def billboard
+        puts "Have you altered how many songs go into each playlist? [y/n]"
+        response = gets.chomp
+        if response.downcase == "n" || response.downcase == "no"
+            topsongs = {"Tropic"=>6, "Perth"=>5, "Raw"=>4, "The Illout"=>4, "Bela"=>3}
+            original_top_songs_playlist = Playlist.create_favourites(topsongs)
+            return original_top_songs_playlist
+        elsif response == "y" || response == "yes"
+            bill = Playlist.create_favourites(Song.top_songs)
+            return bill
+        else
+            puts "Sorry, I do not understand."
+            self.billboard
+        end
+    end
+
 
     def run
         self.greet
@@ -66,32 +86,50 @@ class App
         else
             username = do_you_want_to(title)
             if username.class == String
-                puts "Goodbye!"
-                return "Goodbye!"
+                self.goodbye
+                return
             end
         end
         # Initialisation is over, now let's get to functionality of the app
+        desire = 0
         while desire do
             desire = self.provide_options
             if desire.downcase == "exit"
+                self.goodbye
                 desire = nil
                 break
             end
-            if desire.class != Integer || desire < 1 || desire > 10
+            desire = desire.to_i 
+
+            if desire < 1 || desire > 10
                 puts "Sorry we don't understand your response. Please try again."
             elsif desire == 1
-                username.my_playlists
+                username.my_playlists.each{ |p| puts p.name }
             elsif desire == 2
-                username.my_created_playlists
+                username.my_created_playlists.each{ |p| puts p.name }            
             elsif desire == 3
-                
+                # Modify a playlist
             elsif desire == 4
+                # Check info of song
             elsif desire == 5
+                # Check info of artist
             elsif desire == 6
+                # Check info of genre
             elsif desire == 7
+                # Modify playlist that you did not create
+                # Creates a new playlist with your user id
             elsif desire == 8
+                # Follow a playlist you don't already follow
+                # Shows playlist you don't follow, you choose
+                # And Boom! you follow it
             elsif desire == 9
+                # Add a song, artist or genre to the database
             elsif desire == 10
+                # Check out the billboard top 5
+                bill = self.billboard
+                puts bill
+            end
+
         end
 
 
