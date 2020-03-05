@@ -36,6 +36,9 @@ class App
     end
 
     def provide_options
+        puts "What would you like to do?"
+        puts "Please respond with the integer in the square brackets only."
+        puts "If you would like to leave the app, please type 'exit'."
         puts ""
         puts "See your current Playlists [1]"
         puts "See the Playlists you created [2]"
@@ -68,6 +71,14 @@ class App
             end
         end
         # Initialisation is over, now let's get to functionality of the app
+        while desire do
+            desire = self.provide_options
+            if desire.downcase == "exit"
+                desire = nil
+                break
+            end
+            
+        end
 
 
     end
