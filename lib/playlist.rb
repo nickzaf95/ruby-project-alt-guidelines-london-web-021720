@@ -50,6 +50,13 @@ class Playlist < ActiveRecord::Base
         genre.songs.each{ |s| PlaylistJoiner.add(s, self) }
     end
 
+    def add_songs_from_playlist(title)
+        # Adds all the songs from a specific genre to a playlist
+        # Does not add duplicates (separate method?)
+        play = Playlist.find_by(name: title)
+        play.songs.each{ |s| PlaylistJoiner.add(s, self) }
+    end
+
     def creator
         # Finds the instance of who created this playlist
         User.all.find{ |u| u.id == self.user_id }
