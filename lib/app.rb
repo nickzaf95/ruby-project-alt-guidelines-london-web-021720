@@ -185,6 +185,19 @@ class App
 
     def playlist_starter
         # Checks which playlist you want to modify
+        puts "Out of these playlists, which would you like to modify?"
+        puts ""
+        Playlist.all.each do |p|
+            puts "#{p.name} is option #{p.id}"
+        end
+        response = gets.chomp.to_i
+        if response < 1 || response > Playlist.all.size
+            "Sorry, Please try again."
+            self.playlist_starter
+        else
+            playlist = Playlist.find(response)
+        end
+        playlist
     end
 
     def modify(playlist_name)
@@ -195,7 +208,7 @@ class App
         puts "Add all songs from a genre to this playlist   [3]"
         playlist = Playlist.find_by(name: playlist_name)
         response = gets.chomp.to_i
-        if response.class != Integer || response < 1 || response > 3
+        if response < 1 || response > 3
             puts "Sorry, please try again!"
             self.modify(playlist_name)
         elsif response == 1
@@ -219,10 +232,6 @@ class App
             "Sorry, please start again."
         end
     end
-
-
-
-
 
     def run
         self.greet
@@ -250,7 +259,7 @@ class App
             end
             desire = desire.to_i 
 
-            if desire.class != Integer || desire < 1 || desire > 10
+            if desire < 1 || desire > 10
                 puts "Sorry we don't understand your response. Please try again."
             elsif desire == 1
                 username.my_playlists.each{ |p| puts p.name }
@@ -258,6 +267,7 @@ class App
                 username.my_created_playlists.each{ |p| puts p.name }            
             elsif desire == 3
                 # Modify a playlist
+                
             elsif desire == 4
                 # Check info of song
                 self.song_checker
