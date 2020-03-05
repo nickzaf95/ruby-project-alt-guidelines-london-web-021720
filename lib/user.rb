@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
     end
 
     def follow(title)
+        # Makes user follow this title playlist
         play = Playlist.all.find{ |p| p.name == title }
         Followings.add(self, play)
     end
