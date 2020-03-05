@@ -74,6 +74,46 @@ class App
         end
     end
 
+    def song_checker
+        puts "Please type in the name of the song you would like to check."
+        response = gets.chomp
+        isit = Song.find_by(name: response)
+        if isit == nil
+            # Ask if they want to add the song to the database
+            puts "Would you like to add this song to the database? [y/n]"
+            answer = gets.chomp
+            if answer.downcase == "n" || answer.downcase == "no"
+                puts "Ok not to worry!"
+                return
+            elsif answer.downcase == "y" || answer.downcase == "yes"
+                answer = down_it_and_titleize(answer)
+                puts "Please type in the correct name of the artist."
+                art = gets.chomp
+                if Artist.find_artist(down_it_and_titleize(art)) == nil
+                    art = Artist.create(name: art)
+                else
+                    art = Artist.find_artist(art)
+                end
+                puts "Please type in the correct name of the genre."
+                gen = gets.chomp
+                if Genre.find_genre(down_it_and_titleize(gen))
+                    gen = Genre.find_genre(gen)
+                else
+                    gen = Genre.create(name: gen)
+                end
+                Song.create(name: answer, artist: art, genre: gen)
+            else
+                puts "Sorry we did not understand. Please try again."
+            end
+        else
+            puts "The name of the song is: #{isit.name}"
+            puts "The name of the artist is: #{isit.artist}"
+            puts "The name of the genre is: #{isit.genre}"
+            puts "This song is in #{isit.how_many_playlists} playlists"
+        end
+    end
+
+
 
     def run
         self.greet
@@ -101,7 +141,7 @@ class App
             end
             desire = desire.to_i 
 
-            if desire < 1 || desire > 10
+            if desire.class != Integer || desire < 1 || desire > 10
                 puts "Sorry we don't understand your response. Please try again."
             elsif desire == 1
                 username.my_playlists.each{ |p| puts p.name }
