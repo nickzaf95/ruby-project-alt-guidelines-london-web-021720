@@ -114,6 +114,7 @@ class App
             x = check.songs.map{ |s| s.name }
             puts "#{x}"
         end
+        check
     end
 
     def genre_checker
@@ -133,6 +134,7 @@ class App
             x = check.songs.map{ |s| s.artist.name }.uniq
             puts "The genre has #{x.size} artists"
         end
+        check
     end
 
     def song_adder(response)
@@ -145,10 +147,11 @@ class App
         elsif answer.downcase == "y" || answer.downcase == "yes"
             art = self.artist_adder
             gen = self.genre_adder
-            Song.create(name: response, artist: art, genre: gen)
+            song = Song.create(name: response, artist: art, genre: gen)
         else
             puts "Sorry we did not understand. Please try again."
         end
+        song
     end
 
     def song_checker
@@ -157,14 +160,16 @@ class App
         response = down_it_and_titleize(response)
         isit = Song.find_by(name: response)
         if isit == nil
-            self.song_adder(response)
+            song = self.song_adder(response)
         else
             puts "This song exists!!!"
             puts "The name of the song is: #{isit.name}"
             puts "The name of the artist is: #{isit.artist.name}"
             puts "The name of the genre is: #{isit.genre.name}"
             puts "This song is in #{isit.how_many_playlists} playlists"
+            song = isit
         end
+        song
     end
 
     def song_artist_genre
@@ -177,6 +182,47 @@ class App
             self.song_artist_genre
         end
     end
+
+    def playlist_starter
+        # Checks which playlist you want to modify
+    end
+
+    def modify(playlist_name)
+        puts "How would you like to modify this Playlist?"
+        puts ""
+        puts "Add a song to this playlist                   [1]"
+        puts "Add all songs from an artist to this playlist [2]"
+        puts "Add all songs from a genre to this playlist   [3]"
+        playlist = Playlist.find_by(name: playlist_name)
+        response = gets.chomp.to_i
+        if response.class != Integer || response < 1 || response > 3
+            puts "Sorry, please try again!"
+            self.modify(playlist_name)
+        elsif response == 1
+            song = self.song_checker
+            playlist.add_song(song)
+        elsif response == 2
+            artist = artist_checker
+            playlist.add_songs_from_artist(artist.name)
+        elsif response == 3
+            genre = genre_checker
+            playlist.add_songs_from_genre(genre.name)
+        end
+        puts "Are you finished modifying this playlist?"
+        answer = gets.chomp
+        if answer.downcase == "n" || answer.downcase == "no"
+            self.modify(playlist_name)
+        elsif answer.downcase == "y" || answer.downcase == "yes"
+            puts "Thank you very much!"
+            return
+        else
+            "Sorry, please start again."
+        end
+    end
+
+
+
+
 
     def run
         self.greet
