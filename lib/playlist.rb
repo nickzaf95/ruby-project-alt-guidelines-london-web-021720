@@ -147,4 +147,13 @@ class Playlist < ActiveRecord::Base
         end
     end
 
+    def self.top_two_playlist
+        # Returns the top 2 followed playlists
+        arr = {}
+        Playlist.all.each do |p|
+            arr[p.name] = p.follow_count
+        end
+        arr.sort_by{|k, v| -v}.to_h.first(2).to_h
+    end
+
 end
