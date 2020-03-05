@@ -249,10 +249,6 @@ class App
                 puts "This will print out the songs with how many playlist each song is in."
                 puts bill
             end
-
         end
-
-
     end
-
 end
