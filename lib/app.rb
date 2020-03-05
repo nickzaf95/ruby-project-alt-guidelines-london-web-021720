@@ -127,6 +127,7 @@ class App
             elsif desire == 10
                 # Check out the billboard top 5
                 bill = self.billboard
+                puts "This will print out the songs with how many playlist each song is in."
                 puts bill
             end
 
