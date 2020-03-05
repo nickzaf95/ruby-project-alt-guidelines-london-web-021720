@@ -64,8 +64,8 @@ class App
         if username
             self.welcome_back(username.name)
         else
-            user = do_you_want_to(title)
-            if user.class == String
+            username = do_you_want_to(title)
+            if username.class == String
                 puts "Goodbye!"
                 return "Goodbye!"
             end
@@ -77,7 +77,10 @@ class App
                 desire = nil
                 break
             end
-            
+            if desire == 1
+                username.my_playlists
+            elsif desire == 2
+                
         end
 
 
