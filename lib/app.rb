@@ -74,42 +74,59 @@ class App
         end
     end
 
+    def song_adder
+        # Ask if they want to add the song to the database
+        puts "Would you like to add this song to the database? [y/n]"
+        answer = gets.chomp
+        if answer.downcase == "n" || answer.downcase == "no"
+            puts "Ok not to worry!"
+            return
+        elsif answer.downcase == "y" || answer.downcase == "yes"
+            answer = down_it_and_titleize(answer)
+            puts "Please type in the correct name of the artist."
+            art = gets.chomp
+            if Artist.find_artist(down_it_and_titleize(art)) == nil
+                art = Artist.create(name: art)
+            else
+                art = Artist.find_artist(art)
+            end
+            puts "Please type in the correct name of the genre."
+            gen = gets.chomp
+            if Genre.find_genre(down_it_and_titleize(gen))
+                gen = Genre.find_genre(gen)
+            else
+                gen = Genre.create(name: gen)
+            end
+            Song.create(name: answer, artist: art, genre: gen)
+        else
+            puts "Sorry we did not understand. Please try again."
+        end
+    end
+
     def song_checker
-        puts "Please type in the name of the song you would like to check."
+        puts "Please type in the name of the song."
         response = gets.chomp
+        response = down_it_and_titleize(response)
         isit = Song.find_by(name: response)
         if isit == nil
-            # Ask if they want to add the song to the database
-            puts "Would you like to add this song to the database? [y/n]"
-            answer = gets.chomp
-            if answer.downcase == "n" || answer.downcase == "no"
-                puts "Ok not to worry!"
-                return
-            elsif answer.downcase == "y" || answer.downcase == "yes"
-                answer = down_it_and_titleize(answer)
-                puts "Please type in the correct name of the artist."
-                art = gets.chomp
-                if Artist.find_artist(down_it_and_titleize(art)) == nil
-                    art = Artist.create(name: art)
-                else
-                    art = Artist.find_artist(art)
-                end
-                puts "Please type in the correct name of the genre."
-                gen = gets.chomp
-                if Genre.find_genre(down_it_and_titleize(gen))
-                    gen = Genre.find_genre(gen)
-                else
-                    gen = Genre.create(name: gen)
-                end
-                Song.create(name: answer, artist: art, genre: gen)
-            else
-                puts "Sorry we did not understand. Please try again."
-            end
+            self.song_adder(response)
         else
+            puts "This song exists!!!"
             puts "The name of the song is: #{isit.name}"
             puts "The name of the artist is: #{isit.artist}"
             puts "The name of the genre is: #{isit.genre}"
             puts "This song is in #{isit.how_many_playlists} playlists"
+        end
+    end
+
+    def song_artist_genre
+        puts "What would you like to add? [S]ong, [A]rtist or [G]enre."
+        response = gets.chomp
+        if response.downcase == "s" || response.downcase == "a" || response.downcase == "g" 
+            return response.downcase
+        else
+            "Sorry, we did not understand. Please try again."
+            self.song_artist_genre
         end
     end
 
@@ -151,6 +168,7 @@ class App
                 # Modify a playlist
             elsif desire == 4
                 # Check info of song
+                self.song_checker
             elsif desire == 5
                 # Check info of artist
             elsif desire == 6
@@ -164,6 +182,14 @@ class App
                 # And Boom! you follow it
             elsif desire == 9
                 # Add a song, artist or genre to the database
+                ans = self.song_artist_genre
+                if ans == "s"
+                    self.song_checker
+                elsif ans == "a"
+                    self.artist_adder
+                else
+                    self.genre_adder
+                end
             elsif desire == 10
                 # Check out the billboard top 5
                 bill = self.billboard
