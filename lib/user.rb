@@ -9,6 +9,18 @@ class User < ActiveRecord::Base
         Followings.all.select{ |f| f.user_id == self.id }
     end
 
+    def does_not_follow
+        # Returns list of playlists you don't follow
+        arr = []
+        users_playlists = my_playlists
+        Playlist.all.each do |p|
+            if users_playlists.include?(p) == false 
+                arr << p 
+            end
+        end
+        arr
+    end
+
     def follow(title)
         # Makes user follow this title playlist
         play = Playlist.all.find{ |p| p.name == title }
