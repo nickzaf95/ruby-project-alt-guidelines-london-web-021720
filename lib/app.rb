@@ -135,9 +135,6 @@ class App
         end
     end
 
-
-
-
     def song_adder(response)
         # Ask if they want to add the song to the database
         puts "Would you like to add this song to the database? [y/n]"
@@ -180,8 +177,6 @@ class App
             self.song_artist_genre
         end
     end
-
-
 
     def run
         self.greet
