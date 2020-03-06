@@ -250,6 +250,7 @@ class App
         # Initialisation is over, now let's get to functionality of the app
         desire = 0
         while desire do
+            puts ""
             desire = self.provide_options
             if desire.downcase == "exit"
                 self.goodbye
@@ -286,7 +287,7 @@ class App
                 # And Boom! you follow it
             elsif desire == 9
                 # Add a song, artist or genre to the database
-                ans = self.song_artist_genre
+                ans = song_artist_genre
                 if ans == "s"
                     self.song_checker
                 elsif ans == "a"
