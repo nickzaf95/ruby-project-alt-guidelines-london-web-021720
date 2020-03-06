@@ -1,3 +1,9 @@
 require_relative '../config/environment'
 
-puts "hello world"
+
+# File to contain CLI and to run
+
+cli = App.new
+
+cli.run
+

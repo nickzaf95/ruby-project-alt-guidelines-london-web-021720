@@ -3,6 +3,8 @@ require 'sinatra/activerecord/rake'
 
 desc 'starts a console'
 task :console do
-  ActiveRecord::Base.logger = Logger.new(STDOUT)
+  Rake::Task['db:environment:set'].invoke
+  Rake::Task["db:reset"].invoke
+  ActiveRecord::Base.logger = Logger.new(nil)
   Pry.start
 end
