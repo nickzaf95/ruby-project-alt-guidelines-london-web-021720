@@ -184,7 +184,7 @@ class App
         end
     end
 
-    def playlist_starter
+    def playlist_starter(user)
         # Checks which playlist you want to modify
         puts "Out of these playlists, which would you like to modify?"
         puts ""
@@ -196,9 +196,17 @@ class App
             "Sorry, Please try again."
             self.playlist_starter
         else
+            # First check to see if you created it
+            # Then either create a new one or modify your own
             playlist = Playlist.find(response)
+            if playlist.user_id == user.id
+                return playlist
+            else
+                new_name = "#{playlist.name} - modified by #{user.name}"
+                new_playlist = Playlist.create(name: new_name, user_id: user.id)
+                new_playlist.add_songs_from_playlist(playlist.name)
+                return new_playlist
         end
-        playlist
     end
 
     def modify(playlist)
@@ -268,7 +276,7 @@ class App
                 username.my_created_playlists.each{ |p| puts p.name }            
             elsif desire == 3
                 # Modify a playlist
-                play = self.playlist_starter
+                play = self.playlist_starter(username)
                 self.modify(play)
             elsif desire == 4
                 # Check info of song
@@ -280,13 +288,10 @@ class App
                 # Check info of genre
                 self.genre_checker
             elsif desire == 7
-                # Modify playlist that you did not create
-                # Creates a new playlist with your user id
-            elsif desire == 8
                 # Follow a playlist you don't already follow
                 # Shows playlist you don't follow, you choose
                 # And Boom! you follow it
-            elsif desire == 9
+            elsif desire == 8
                 # Add a song, artist or genre to the database
                 ans = song_artist_genre
                 if ans == "s"
@@ -296,7 +301,7 @@ class App
                 else
                     self.genre_adder
                 end
-            elsif desire == 10
+            elsif desire == 9
                 # Check out the billboard top 5
                 bill = self.billboard
                 puts "This will print out the songs with how many playlist each song is in."
