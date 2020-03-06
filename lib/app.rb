@@ -205,6 +205,7 @@ class App
                 new_playlist = Playlist.create(name: new_name, user_id: user.id)
                 new_playlist.add_songs_from_playlist(playlist.name)
                 return new_playlist
+            end
         end
     end
 
@@ -270,8 +271,10 @@ class App
             if desire < 1 || desire > 10
                 puts "Sorry we don't understand your response. Please try again."
             elsif desire == 1
+                # See playlists you follow
                 username.my_playlists.each{ |p| puts p.name }
             elsif desire == 2
+                # See playlists you created
                 username.my_created_playlists.each{ |p| puts p.name }            
             elsif desire == 3
                 # Modify a playlist
