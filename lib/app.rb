@@ -269,6 +269,8 @@ class App
         username = User.find_by(name: title)
         if username
             self.welcome_back(username.name)
+        elsif title.downcase == "exit"
+            return
         else
             username = do_you_want_to(title)
             if username.class == String
