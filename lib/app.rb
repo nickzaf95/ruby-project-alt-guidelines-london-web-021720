@@ -193,7 +193,6 @@ class App
         response = gets.chomp.to_i
         if response < 1 || response > Playlist.all.size
             "Sorry, Please try again."
-            self.playlist_starter
         else
             # First check to see if you created it
             # Then either create a new one or modify your own
@@ -218,10 +217,9 @@ class App
         response = gets.chomp.to_i
         if response < 1 || response > 3
             puts "Sorry, please try again!"
-            self.modify(playlist)
         elsif response == 1
             song = self.song_checker
-            playlist.add_song(song)
+            playlist.add_song(song.name)
         elsif response == 2
             artist = artist_checker
             playlist.add_songs_from_artist(artist.name)
@@ -232,7 +230,7 @@ class App
         puts "Are you finished modifying this playlist?"
         answer = gets.chomp
         if answer.downcase == "n" || answer.downcase == "no"
-            self.modify(playlist_name)
+            self.modify(playlist)
         elsif answer.downcase == "y" || answer.downcase == "yes"
             puts "Thank you very much!"
             return
