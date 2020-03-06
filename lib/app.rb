@@ -131,7 +131,8 @@ class App
             x = check.songs.map{ |s| s.name }
             puts "#{x}"
             puts "The genre's artists are:"
-            x = check.songs.map{ |s| s.artist.name }.uniq
+            x = check.artists.uniq
+            x.each{ |a| puts a.name }
             puts "The genre has #{x.size} artists"
         end
         check
