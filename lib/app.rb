@@ -41,6 +41,7 @@ class App
 
     def provide_options
         puts "What would you like to do?"
+        puts ""
         puts "Please respond with the integer in the square brackets only."
         puts "If you would like to leave the app, please type 'exit'."
         puts ""
@@ -291,33 +292,41 @@ class App
             desire = desire.to_i 
 
             if desire < 1 || desire > 10
+                puts ""
                 puts "Sorry we don't understand your response. Please try again."
             elsif desire == 1
                 # See playlists you follow
                 username.my_playlists.each{ |p| puts p.name }
             elsif desire == 2
+                puts ""
                 # See playlists you created
                 username.my_created_playlists.each{ |p| puts p.name }            
             elsif desire == 3
                 # Modify a playlist
+                puts ""
                 play = self.playlist_starter(username)
                 self.modify(play)
             elsif desire == 4
                 # Check info of song
+                puts ""
                 self.song_checker
             elsif desire == 5
                 # Check info of artist
+                puts ""
                 self.artist_checker
             elsif desire == 6
                 # Check info of genre
+                puts ""
                 self.genre_checker
             elsif desire == 7
                 # Follow a playlist you don't already follow
                 # Shows playlist you don't follow, you choose
                 # And Boom! you follow it
+                puts ""
                 self.follow_unfollowed(username)
             elsif desire == 8
                 # Add a song, artist or genre to the database
+                puts ""
                 ans = song_artist_genre
                 if ans == "s"
                     self.song_checker
@@ -328,6 +337,7 @@ class App
                 end
             elsif desire == 9
                 # Check out the billboard top 5
+                puts ""
                 bill = self.billboard
                 puts "This will print out the songs with how many playlist each song is in."
                 puts bill
