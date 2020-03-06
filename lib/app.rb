@@ -269,10 +269,12 @@ class App
         title = down_it_and_titleize(title)
         username = User.find_by(name: title)
         if username
+            puts ""
             self.welcome_back(username.name)
         elsif title.downcase == "exit"
             return
         else
+            puts ""
             username = do_you_want_to(title)
             if username.class == String
                 self.goodbye
@@ -284,6 +286,7 @@ class App
         while desire do
             puts ""
             desire = self.provide_options
+            puts ""
             if desire.downcase == "exit"
                 self.goodbye
                 desire = nil
@@ -340,6 +343,7 @@ class App
                 puts ""
                 bill = self.billboard
                 puts "This will print out the songs with how many playlist each song is in."
+                puts ""
                 puts bill
             end
         end
