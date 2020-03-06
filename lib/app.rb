@@ -44,7 +44,7 @@ class App
         puts "Please respond with the integer in the square brackets only."
         puts "If you would like to leave the app, please type 'exit'."
         puts ""
-        puts "See your current Playlists                       [1]"
+        puts "See the Playlists you currently follow.          [1]"
         puts "See the Playlists you created                    [2]"
         puts "Modify a Playlists                               [3]"
         puts "Check the information of a particular song       [4]"
@@ -241,6 +241,24 @@ class App
         end
     end
 
+    def follow_unfollowed(username)
+        username.does_not_follow.uniq.each{ |p| puts p.name }
+        puts "Please type in the exact name of the playlist you would like to follow."
+        puts ""
+        response = gets.chomp
+        play = Playlist.find_by(name: response)
+        if play
+            already = username.follows_playlists_id
+            if already.include?(play.id)
+                puts "Sorry, you already follow this playlist! Have a nice day."
+            else
+                username.follow(response)
+            end
+        else
+            puts "Sorry, your playlist does not exist. Please try again."
+        end
+    end
+
     def run
         self.greet
         self.ask_for_name
@@ -293,6 +311,7 @@ class App
                 # Follow a playlist you don't already follow
                 # Shows playlist you don't follow, you choose
                 # And Boom! you follow it
+                self.follow_unfollowed(username)
             elsif desire == 8
                 # Add a song, artist or genre to the database
                 ans = song_artist_genre
