@@ -198,8 +198,12 @@ class App
             # Then either create a new one or modify your own
             playlist = Playlist.find(response)
             if playlist.user_id == user.id
+                puts "You created this playlist! So we will modify the original."
                 return playlist
             else
+                puts "Someone else created this playlist."
+                puts "So we will create a new playlist for you with the modifications."
+                puts ""
                 new_name = "#{playlist.name} - modified by #{user.name}"
                 new_playlist = Playlist.create(name: new_name, user_id: user.id)
                 new_playlist.add_songs_from_playlist(playlist.name)
